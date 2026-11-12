@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealSync — Ultimate Ecosystem</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- RGB Neon Background Glow Effects -->
+    <div class="rgb-glow-1"></div>
+    <div class="rgb-glow-2"></div>
+
+    <div class="app-container">
+        <!-- Header & Creator Signature -->
+        <header class="app-header">
+            <div class="badge">🚀 PRO EDITION</div>
+            <h1>RealSync <span>AI</span></h1>
+            <p class="signature">Crafted with absolute mastery by <b>Ziyodullayev Elbek</b></p>
+        </header>
+
+        <!-- Live Status Card -->
+        <div class="glass-card neon-border">
+            <div class="card-title">
+                <span>⚡ Tizim Holati</span>
+                <span class="live-dot"></span>
+            </div>
+            <p class="stat-text">Foydalanuvchi faolligi va sun'iy intellekt sinxronizatsiyasi mukammal ishlamoqda.</p>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+
+        <!-- Interactive Action Grid -->
+        <div class="grid-menu">
+            <div class="glass-card action-card" onclick="trackAction('Fokus Rejimi')">
+                <div class="icon">🎯</div>
+                <h3>Fokus Rejimi</h3>
+                <p>Oqimga kirish</p>
+            </div>
+            <div class="glass-card action-card" onclick="trackAction('AI Yordamchi')">
+                <div class="icon">✨</div>
+                <h3>AI Maslahat</h3>
+                <p>Tahlil olish</p>
+            </div>
+            <div class="glass-card action-card" onclick="trackAction('Statistika')">
+                <div class="icon">📊</div>
+                <h3>Statistika</h3>
+                <p>Natijalarni ko'rish</p>
+            </div>
+            <div class="glass-card action-card" onclick="trackAction('Maxfiy Bo\'lim')">
+                <div class="icon">🔥</div>
+                <h3>Elite Zone</h3>
+                <p>Maxsus imkoniyat</p>
+            </div>
+        </div>
+
+        <!-- Footer Info for Developers (Parents check) -->
+        <footer class="app-footer">
+            <p>Architecture v4.2 • Secured via Telegram WebApp API</p>
+        </footer>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        
+        // Foydalanuvchi ma'lumotlarini olish va admin panelga yuborish
+        const user = tg.initDataUnsafe?.user || { id: 999999, first_name: "Elbek (Test)", username: "ziyodullayev" };
+
+        function trackAction(actionName) {
+            tg.HapticFeedback.notificationOccurred('success');
+            
+            // Backendga ma'lumot yuborish (Kim, qachon, qaysi tugmani bosgani)
+            fetch('/api/track', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: user.id,
+                    name: user.first_name,
+                    username: user.username,
+                    action: actionName,
+                    time: new Date().toLocaleString()
+                })
+            }).then(() => {
+                alert(`Muvaffaqiyatli bajarildi: ${actionName}`);
+            }).catch(err => {
+                console.log("Tracking simulated:", actionName);
+            });
+        }
+    </script>
+</body>
+</html>
